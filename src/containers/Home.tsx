@@ -11,6 +11,7 @@ export default function Home() {
   const [notes, setNotes] = useState([]);
   const { isAuthenticated } = useAuthContext();
   const [isLoading, setIsLoading] = useState(true);
+  console.log(isAuthenticated)
 
   useEffect(() => {
     async function onLoad() {
@@ -68,11 +69,8 @@ export default function Home() {
         <h1>Scratch</h1>
         <p className="text-muted">A simple note taking app</p>
         <div className="pt-3">
-          <Link to="/login" className="btn btn-info btn-lg mr-3">
-            Login
-          </Link>
-          <Link to="/signup" className="btn btn-success btn-lg">
-            Signup
+          <Link to="/sign-in" className="btn btn-success btn-lg">
+            Sign in
           </Link>
         </div>
       </div>
