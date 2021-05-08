@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { BsPencilSquare } from "react-icons/bs";
+import React, {useEffect, useState} from "react";
+import {BsPencilSquare} from "react-icons/bs";
 import ListGroup from "react-bootstrap/ListGroup";
-import { LinkContainer } from "react-router-bootstrap";
-import { useAuthContext } from "../libs/authContext";
-import { onError } from "../libs/errorLib";
+import {LinkContainer} from "react-router-bootstrap";
+import {useAuthContext} from "../libs/authContext";
+import {onError} from "../libs/errorLib";
 import "./Home.css";
+import {Lander} from "./Lander";
 
 export default function Home() {
   const [notes, setNotes] = useState([]);
@@ -63,32 +63,16 @@ export default function Home() {
     );
   }
 
-  function renderLander() {
-    return (
-      <div className="lander">
-        <h1>Scratch</h1>
-        <p className="text-muted">A simple note taking app</p>
-        <div className="pt-3">
-          <Link to="/sign-in" className="btn btn-success btn-lg">
-            Sign in
-          </Link>
-        </div>
-      </div>
-    );
-  }
-
-  function renderNotes() {
-    return (
+  const NotesContainer = () => (
       <div className="notes">
         <h2 className="pb-3 mt-4 mb-3 border-bottom">Your Notes</h2>
         <ListGroup>{!isLoading && renderNotesList(notes as any)}</ListGroup> // TODO fix types
       </div>
-    );
-  }
+  );
   
   return (
     <div className="Home">
-      {isAuthenticated ? renderNotes() : renderLander()}
+      {isAuthenticated ? (<NotesContainer/>) : (<Lander/>)}
     </div>
   );
 }
