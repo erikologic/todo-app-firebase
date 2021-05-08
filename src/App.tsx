@@ -1,13 +1,10 @@
-import React, {useState, useEffect} from "react";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter as Router, useHistory} from "react-router-dom";
-import {LinkContainer} from "react-router-bootstrap";
 import ErrorBoundary from "./components/ErrorBoundary";
 import {AuthContext} from "./libs/authContext";
-import {onError} from "./libs/errorLib";
 import Routes from "./Routes";
 import "./App.css";
+import {MyNavBar} from "./containers/MyNavBar";
 
 function App() {
     const history = useHistory();
@@ -46,35 +43,7 @@ function App() {
             <Router>
                 {!isAuthenticating && (
                     <div className="App container py-3">
-                        <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
-                            <LinkContainer to="/">
-                                <Navbar.Brand className="font-weight-bold text-muted">
-                                    Scratch
-                                </Navbar.Brand>
-                            </LinkContainer>
-                            <Navbar.Toggle/>
-                            <Navbar.Collapse className="justify-content-end">
-                                <Nav activeKey={window.location.pathname}>
-                                    {isAuthenticated ? (
-                                        <>
-                                            <LinkContainer to="/settings">
-                                                <Nav.Link>Settings</Nav.Link>
-                                            </LinkContainer>
-                                            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <LinkContainer to="/signup">
-                                                <Nav.Link>Signup</Nav.Link>
-                                            </LinkContainer>
-                                            <LinkContainer to="/login">
-                                                <Nav.Link>Login</Nav.Link>
-                                            </LinkContainer>
-                                        </>
-                                    )}
-                                </Nav>
-                            </Navbar.Collapse>
-                        </Navbar>
+                        <MyNavBar {...{isAuthenticated, handleLogout}} />
                         <ErrorBoundary>
                                 <Routes/>
                         </ErrorBoundary>
