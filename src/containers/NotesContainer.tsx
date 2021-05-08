@@ -1,32 +1,33 @@
-import React, {useEffect, useState} from "react";
-import {onError} from "../libs/errorLib";
+import React, {useState} from "react";
+// import {onError} from "../libs/errorLib";
 import ListGroup from "react-bootstrap/ListGroup";
 import {LinkContainer} from "react-router-bootstrap";
 import {BsPencilSquare} from "react-icons/bs";
 
 export const NotesContainer = () => {
-    const [notes, setNotes] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [notes] = useState([]);
+    // const [notes, setNotes] = useState([]);
+    // const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        async function onLoad() {
-            try {
-                const notes = await loadNotes();
-                setNotes(notes);
-            } catch (e) {
-                onError(e);
-            }
+    // useEffect(() => {
+    //     async function onLoad() {
+    //         try {
+    //             const notes = await loadNotes();
+    //             setNotes(notes);
+    //         } catch (e) {
+    //             onError(e);
+    //         }
+    //
+    //         setIsLoading(false);
+    //     }
+    //
+    //     onLoad();
+    // }, []);
 
-            setIsLoading(false);
-        }
-
-        onLoad();
-    }, []);
-
-    function loadNotes() {
-        // return API.get("notes", "/notes");
-        return []; // TODO
-    }
+    // function loadNotes() {
+    //     // return API.get("notes", "/notes");
+    //     return []; // TODO
+    // }
 
     return (
         <div className="notes">
@@ -42,7 +43,7 @@ export const NotesContainer = () => {
                     <LinkContainer key={noteId} to={`/notes/${noteId}`}>
                         <ListGroup.Item action>
                             <span className="font-weight-bold">
-                            {(content as string).trim().split("\n")[0]} // TODO fix type
+                            {(content as string).trim().split("\n")[0]} {/* TODO fix type*/}
                             </span>
                             <br/>
                             <span className="text-muted">
@@ -51,7 +52,7 @@ export const NotesContainer = () => {
                         </ListGroup.Item>
                     </LinkContainer>
                 ))}
-            </ListGroup> // TODO fix types
+            </ListGroup>
         </div>
     )
 };

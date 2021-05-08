@@ -3,7 +3,7 @@ import Form from "react-bootstrap/Form";
 import { useParams, useHistory } from "react-router-dom";
 import LoaderButton from "../components/LoaderButton";
 import { onError } from "../libs/errorLib";
-import config from "../config";
+// import config from "../config";
 import "./Notes.css";
 
 export default function Notes() {
@@ -55,8 +55,6 @@ export default function Notes() {
   }
 
   async function handleSubmit(event) {
-    let attachment;
-
     event.preventDefault();
 
 
