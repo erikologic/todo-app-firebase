@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import React from "react";
+import "./Lander.css";
 
 export const Lander = () => (
     <div className="lander">
