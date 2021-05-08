@@ -1,78 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {BsPencilSquare} from "react-icons/bs";
-import ListGroup from "react-bootstrap/ListGroup";
-import {LinkContainer} from "react-router-bootstrap";
+import React from "react";
 import {useAuthContext} from "../libs/authContext";
-import {onError} from "../libs/errorLib";
 import "./Home.css";
 import {Lander} from "./Lander";
+import {NotesContainer} from "./NotesContainer";
 
 export default function Home() {
-  const [notes, setNotes] = useState([]);
-  const { isAuthenticated } = useAuthContext();
-  const [isLoading, setIsLoading] = useState(true);
-  console.log(isAuthenticated)
+    const {isAuthenticated} = useAuthContext();
 
-  useEffect(() => {
-    async function onLoad() {
-      if (!isAuthenticated) {
-        return;
-      }
-
-      try {
-        const notes = await loadNotes();
-        setNotes(notes);
-      } catch (e) {
-        onError(e);
-      }
-
-      setIsLoading(false);
-    }
-
-    onLoad();
-  }, [isAuthenticated]);
-
-  function loadNotes() {
-    // return API.get("notes", "/notes");
-    return []; // TODO
-  }
-
-  function renderNotesList(notes: []) { // TODO fix type
     return (
-      <>
-        <LinkContainer to="/notes/new">
-          <ListGroup.Item action className="py-3 text-nowrap text-truncate">
-            <BsPencilSquare size={17} />
-            <span className="ml-2 font-weight-bold">Create a new note</span>
-          </ListGroup.Item>
-        </LinkContainer>
-        {notes.map(({ noteId, content, createdAt }) => (
-          <LinkContainer key={noteId} to={`/notes/${noteId}`}>
-            <ListGroup.Item action>
-              <span className="font-weight-bold">
-                {(content as string).trim().split("\n")[0]} // TODO fix type
-              </span>
-              <br />
-              <span className="text-muted">
-                Created: {new Date(createdAt).toLocaleString()}
-              </span>
-            </ListGroup.Item>
-          </LinkContainer>
-        ))}
-      </>
+        <div className="Home">
+            {isAuthenticated ? (<NotesContainer/>) : (<Lander/>)}
+        </div>
     );
-  }
-
-  const NotesContainer = () => (
-      <div className="notes">
-        <h2 className="pb-3 mt-4 mb-3 border-bottom">Your Notes</h2>
-        <ListGroup>{!isLoading && renderNotesList(notes as any)}</ListGroup> // TODO fix types
-      </div>
-  );
-  
-  return (
-    <div className="Home">
-      {isAuthenticated ? (<NotesContainer/>) : (<Lander/>)}
-    </div>
-  );
 }
