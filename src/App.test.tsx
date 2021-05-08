@@ -5,9 +5,5 @@ import React from "react";
 
 test('renders', () => {
     // TODO this test is bad and should really be changed
-    expect(() => render(
-        <Router>
-            <App/>
-        </Router>)
-    ).not.toThrow();
+    expect(() => render(<App/>)).not.toThrow();
 });
