@@ -2,8 +2,12 @@ import Navbar from "react-bootstrap/Navbar";
 import {LinkContainer} from "react-router-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import React from "react";
+import {useAuthContext} from "../libs/authContext";
 
-export const MyNavBar = ({isAuthenticated, handleLogout}: any) => (
+export const MyNavBar = () => {
+    const { isAuthenticated, handleLogout } = useAuthContext();
+
+    return (
     <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
         <LinkContainer to="/">
             <Navbar.Brand className="font-weight-bold text-muted">
@@ -33,4 +37,4 @@ export const MyNavBar = ({isAuthenticated, handleLogout}: any) => (
             </Nav>
         </Navbar.Collapse>
     </Navbar>
-)
+)}
