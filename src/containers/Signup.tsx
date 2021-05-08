@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
 import LoaderButton from "../components/LoaderButton";
-import { useAppContext } from "../libs/contextLib";
+import { useAuthContext } from "../libs/authContext";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
 import "./Signup.css";
@@ -16,7 +16,7 @@ export default function Signup() {
   });
   const history = useHistory();
   const [newUser, setNewUser] = useState(null);
-  const { userHasAuthenticated } = useAppContext();
+  const { userHasAuthenticated } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {

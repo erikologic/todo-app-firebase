@@ -1,10 +1,10 @@
 import {useContext, createContext, Dispatch, SetStateAction} from "react";
 
-export const AppContext = createContext({
+export const AuthContext = createContext({
   isAuthenticated: false,
   userHasAuthenticated: (() => {}) as any       // TODO this is wrong
 });
 
-export function useAppContext() {
-  return useContext(AppContext);
+export function useAuthContext() {
+  return useContext(AuthContext);
 }

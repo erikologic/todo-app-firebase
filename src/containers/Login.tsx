@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import LoaderButton from "../components/LoaderButton";
-import { useAppContext } from "../libs/contextLib";
+import { useAuthContext } from "../libs/authContext";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
 import "./Login.css";
 
 export default function Login() {
-  const { userHasAuthenticated } = useAppContext();
+  const { userHasAuthenticated } = useAuthContext();
   const [isLoading, setIsLoading] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
     email: "",

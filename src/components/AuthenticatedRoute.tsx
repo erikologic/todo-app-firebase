@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Redirect, useLocation } from "react-router-dom";
-import { useAppContext } from "../libs/contextLib";
+import { useAuthContext } from "../libs/authContext";
 
 // TODO remove any
 export default function AuthenticatedRoute({ children, ...rest }: any) {
   const { pathname, search } = useLocation();
-  const { isAuthenticated } = useAppContext();
+  const { isAuthenticated } = useAuthContext();
   return (
     <Route {...rest}>
       {isAuthenticated ? (

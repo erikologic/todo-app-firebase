@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import {BrowserRouter as Router, useHistory} from "react-router-dom";
 import {LinkContainer} from "react-router-bootstrap";
 import ErrorBoundary from "./components/ErrorBoundary";
-import {AppContext} from "./libs/contextLib";
+import {AuthContext} from "./libs/authContext";
 import {onError} from "./libs/errorLib";
 import Routes from "./Routes";
 import "./App.css";
@@ -42,6 +42,7 @@ function App() {
 
     return (
         <React.StrictMode>
+            <AuthContext.Provider value={{isAuthenticated, userHasAuthenticated}}>
             <Router>
                 {!isAuthenticating && (
                     <div className="App container py-3">
@@ -75,12 +76,11 @@ function App() {
                             </Navbar.Collapse>
                         </Navbar>
                         <ErrorBoundary>
-                            <AppContext.Provider value={{isAuthenticated, userHasAuthenticated}}>
                                 <Routes/>
-                            </AppContext.Provider>
                         </ErrorBoundary>
                     </div>)}
             </Router>
+            </AuthContext.Provider>
         </React.StrictMode>
     );
 }

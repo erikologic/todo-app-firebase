@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { BsPencilSquare } from "react-icons/bs";
 import ListGroup from "react-bootstrap/ListGroup";
 import { LinkContainer } from "react-router-bootstrap";
-import { useAppContext } from "../libs/contextLib";
+import { useAuthContext } from "../libs/authContext";
 import { onError } from "../libs/errorLib";
 import "./Home.css";
 
 export default function Home() {
   const [notes, setNotes] = useState([]);
-  const { isAuthenticated } = useAppContext();
+  const { isAuthenticated } = useAuthContext();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
