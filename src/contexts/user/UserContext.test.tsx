@@ -1,8 +1,8 @@
-import { auth } from "./firebase";
 import { render, RenderResult, act, fireEvent } from "@testing-library/react";
 import React from "react";
-import { UserContextProvider, useUserContext } from "./authContext";
 import firebase from "firebase";
+import { UserContextProvider, useUserContext } from "./UserContext";
+import { auth } from "../../libs/firebase";
 
 const UserContextConsumer = () => {
   const { user } = useUserContext();
@@ -11,7 +11,7 @@ const UserContextConsumer = () => {
       {user.email}
     </div>
   ) : (
-    <div data-testid="not-authenticated"></div>
+    <div data-testid="not-authenticated" />
   );
 };
 

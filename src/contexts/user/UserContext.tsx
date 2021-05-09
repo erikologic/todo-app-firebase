@@ -1,6 +1,12 @@
-import React, { useContext, createContext, useState, useEffect } from "react";
-import { auth, signInOptions } from "./firebase";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { SignInElem } from "./SignInElem";
+import { auth } from "../../libs/firebase";
 
 interface ToDoUser {
   email: string | null;
@@ -12,25 +18,12 @@ interface IAuthContext {
   SignInElem: React.FC;
 }
 
-// Configure FirebaseUI.
-const uiConfig = {
-  // Popup signin flow rather than redirect flow.
-  signInFlow: "popup",
-  // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-  signInSuccessUrl: "/",
-  // We will display Google and Facebook as auth providers.
-  signInOptions,
-};
-
-const SignInElem: React.FC = () => (
-  <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth} />
-);
-
 const defaultUserContext = { SignInElem };
 const UserContext = createContext<IAuthContext>(defaultUserContext);
-export const useUserContext = () => useContext(UserContext);
+export const useUserContext = (): IAuthContext => useContext(UserContext);
 
-export const UserContextProvider = ({ children }: any) => {
+type PropsChildren = { children: ReactNode };
+export const UserContextProvider: React.FC<PropsChildren> = ({ children }) => {
   const [context, setContext] = useState<IAuthContext>(defaultUserContext);
 
   useEffect(() => {
