@@ -1,35 +1,49 @@
 import React, {useContext, createContext, useState, useEffect} from "react";
-import {auth} from "./firebase";
+import {auth, signInOptions} from "./firebase";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+
+interface ToDoUser {
+    email: string | null;
+    logout: () => void;
+}
 
 interface IAuthContext {
-    handleLogout: () => void;
-    isAuthenticated: boolean;
-    uid: string;
-}
-const unauthenticatedContext: IAuthContext = {
-    handleLogout: () => {},
-    isAuthenticated: false,
-    uid: "",
+    user?: ToDoUser,
+    SignInElem: React.FC;
 }
 
-export const AuthContext = createContext<IAuthContext>(unauthenticatedContext);
+// Configure FirebaseUI.
+const uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: 'popup',
+    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+    signInSuccessUrl: '/',
+    // We will display Google and Facebook as auth providers.
+    signInOptions,
+};
 
-export function useAuthContext() {
-    return useContext(AuthContext);
-}
+const SignInElem: React.FC = () => (
+    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth}/>
+)
 
-export const MyAuthContext = ({children}: any) => {
-    const [context, setContext] = useState(unauthenticatedContext)
+const defaultUserContext = { SignInElem }
+const UserContext = createContext<IAuthContext>(defaultUserContext);
+export const useUserContext = () => useContext(UserContext);
+
+export const UserContextProvider = ({children}: any) => {
+    const [context, setContext] = useState<IAuthContext>(defaultUserContext)
 
     useEffect(() => {
         const unregisterAuthObserver = auth.onAuthStateChanged(user => {
             if (user) {
                 setContext({
-                    handleLogout: () => {
-                        auth.signOut().then(() => setContext(unauthenticatedContext))
-                    },
-                    isAuthenticated: true,
-                    uid: user.uid
+                    ...defaultUserContext,
+                    user: {
+                        logout: () => {
+                            auth.signOut().then(() => setContext(defaultUserContext))
+                        },
+                        email: user.email
+                    }
                 })
             }
         });
@@ -38,8 +52,8 @@ export const MyAuthContext = ({children}: any) => {
 
 
     return (
-        <AuthContext.Provider value={context}>
+        <UserContext.Provider value={context}>
             {children}
-        </AuthContext.Provider>
+        </UserContext.Provider>
     )
 }

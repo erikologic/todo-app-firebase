@@ -1,18 +1,24 @@
+/**
+ * @jest-environment jsdom
+ */
 import {auth} from "./firebase";
-import {screen, render, RenderResult, act, waitFor, fireEvent} from "@testing-library/react";
+import {render, RenderResult, act, fireEvent} from "@testing-library/react";
 import React from "react";
-import {MyAuthContext, useAuthContext} from "./authContext";
+import {UserContextProvider, useUserContext} from "./authContext";
 import firebase from "firebase";
 
-const MyAuthContextConsumer = () => {
-    const {handleLogout, isAuthenticated, uid} = useAuthContext()
-    return isAuthenticated
+const UserContextConsumer = () => {
+    const {user} = useUserContext()
+    return user
         ? (
-            <div data-testid="authenticated" onClick={handleLogout}>
-                <div data-testid="uid">${uid}</div>
+            <div data-testid="authenticated" onClick={user.logout}>
+                {user.email}
             </div>
         )
-        : (<div data-testid="not-authenticated"/>)
+        : (
+            <div data-testid="not-authenticated">
+            </div>
+        )
 }
 
 describe('authLib', () => {
@@ -20,13 +26,13 @@ describe('authLib', () => {
 
     beforeEach(() => {
         res = render(
-            <MyAuthContext>
-                <MyAuthContextConsumer/>
-            </MyAuthContext>
+            <UserContextProvider>
+                <UserContextConsumer/>
+            </UserContextProvider>
         )
     })
 
-    describe('when a user is not logged in ', () => {
+    describe('when a user is not logged in', () => {
         beforeEach(async () => {
             await act(async () => {
                 await auth.signOut();
@@ -56,10 +62,7 @@ describe('authLib', () => {
 
         test('can know if is logged in', async () => {
             expect(await res.findByTestId("authenticated")).toBeInTheDocument()
-        })
-
-        test('can get the user email', async () => {
-            expect(await res.findByTestId("uid")).toHaveTextContent('8SMfsITXKpi8D9vY4t0qe05CwEoL')
+            expect(await res.findByTestId("authenticated")).toHaveTextContent('foo@example.com')
         })
 
         test('can log out', async () => {
