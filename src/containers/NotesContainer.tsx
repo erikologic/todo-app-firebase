@@ -3,16 +3,16 @@ import { onError } from "../libs/errorLib";
 import ListGroup from "react-bootstrap/ListGroup";
 import { LinkContainer } from "react-router-bootstrap";
 import { BsPencilSquare } from "react-icons/bs";
-import { getNotes } from "../libs/firestore";
 import { useUserContext } from "../contexts/user/UserContext";
 
 export const NotesContainer = () => {
-  const [notes, setNotes] = useState([] as any[]);
-  const { user } = useUserContext();
+  const [notes] = useState([] as any[]);
+  // const [notes, setNotes] = useState([] as any[]);
+  // const { user } = useUserContext();
 
-  useEffect(() => {
-    if (user?.email) getNotes(user.email).then(setNotes).catch(onError);
-  }, [user?.email]);
+  // useEffect(() => {
+  //   if (user?.email) getNotes(user.email).then(setNotes).catch(onError);
+  // }, [user?.email]);
 
   return (
     <div className="notes">
