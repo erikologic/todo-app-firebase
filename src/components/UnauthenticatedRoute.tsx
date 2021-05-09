@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useAuthContext } from "../libs/authContext";
+import { useUserContext } from "../contexts/user/UserContext";
 
 // TODO remove any
 function querystring(name: any, url = window.location.href) {
@@ -21,11 +21,11 @@ function querystring(name: any, url = window.location.href) {
 
 // TODO remove any
 export default function UnauthenticatedRoute({ children, ...rest }: any) {
-  const { isAuthenticated } = useAuthContext();
+  const { user } = useUserContext();
   const redirect = querystring("redirect");
   return (
     <Route {...rest}>
-      {!isAuthenticated ? (
+      {!user ? (
         children
       ) : (
         <Redirect to={redirect === "" || redirect === null ? "/" : redirect} />

@@ -1,21 +1,11 @@
 // Import FirebaseAuth and firebase.
-import React from 'react';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import {auth, signInOptions} from "../libs/firebase";
+import React from "react";
+import { useUserContext } from "../contexts/user/UserContext";
 
+const SignIn: React.FC = () => {
+  const { SignInElem } = useUserContext();
 
-// Configure FirebaseUI.
-const uiConfig = {
-    // Popup signin flow rather than redirect flow.
-    signInFlow: 'popup',
-    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-    signInSuccessUrl: '/',
-    // We will display Google and Facebook as auth providers.
-    signInOptions,
+  return <SignInElem />;
 };
 
-const SignIn = () => (
-    <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={auth}/>
-)
-
-export default SignIn
+export default SignIn;

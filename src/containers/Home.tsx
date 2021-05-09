@@ -1,10 +1,10 @@
 import React from "react";
-import {useAuthContext} from "../libs/authContext";
-import {Lander} from "./Lander";
-import {NotesContainer} from "./NotesContainer";
+import { Lander } from "./Lander";
+import { NotesContainer } from "./NotesContainer";
+import { useUserContext } from "../contexts/user/UserContext";
 
 export default function Home() {
-    const {isAuthenticated} = useAuthContext();
+  const { user } = useUserContext();
 
-    return isAuthenticated ? (<NotesContainer/>) : (<Lander/>)
+  return user ? <NotesContainer /> : <Lander />;
 }
