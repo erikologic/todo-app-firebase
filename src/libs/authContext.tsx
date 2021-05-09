@@ -4,36 +4,41 @@ import {auth} from "./firebase";
 interface IAuthContext {
     handleLogout: () => void;
     isAuthenticated: boolean;
+    uid: string;
 }
-
-const defaultContext = {
+const unauthenticatedContext: IAuthContext = {
     handleLogout: () => {},
     isAuthenticated: false,
+    uid: "",
 }
 
-export const AuthContext = createContext<IAuthContext>(defaultContext);
+export const AuthContext = createContext<IAuthContext>(unauthenticatedContext);
 
 export function useAuthContext() {
     return useContext(AuthContext);
 }
 
 export const MyAuthContext = ({children}: any) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const handleLogout = () => {
-        auth.signOut().then(() => setIsAuthenticated(false))
-    }
+    const [context, setContext] = useState(unauthenticatedContext)
 
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
+        const unregisterAuthObserver = auth.onAuthStateChanged(user => {
             if (user) {
-                setIsAuthenticated(true);
+                setContext({
+                    handleLogout: () => {
+                        auth.signOut().then(() => setContext(unauthenticatedContext))
+                    },
+                    isAuthenticated: true,
+                    uid: user.uid
+                })
             }
         });
+        return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
     }, [])
 
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, handleLogout}}>
+        <AuthContext.Provider value={context}>
             {children}
         </AuthContext.Provider>
     )
