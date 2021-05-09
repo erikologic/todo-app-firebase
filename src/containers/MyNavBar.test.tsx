@@ -40,4 +40,32 @@ describe("MyNavBar", () => {
       expect(res.getByTestId("sign-in-page")).toBeInTheDocument();
     });
   });
+
+  describe("when logged in", () => {
+    let res;
+
+    beforeEach(() => {
+      const authenticatedContext: IAuthContext = {
+        SignInElem() {
+          return <div />;
+        },
+        user: {
+          email: null,
+          logout: () => null,
+        },
+      };
+
+      res = render(
+        <UserContext.Provider value={authenticatedContext}>
+          <MemoryRouter>
+            <MyNavBar />
+          </MemoryRouter>
+        </UserContext.Provider>
+      );
+    });
+
+    test("shows logout", () => {
+      expect(res.getByText("Logout")).toBeInTheDocument();
+    });
+  });
 });
