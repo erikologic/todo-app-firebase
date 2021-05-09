@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { useUserContext } from "../contexts/user/UserContext";
+import { useUserContext } from "../user/UserContext";
 
 // TODO remove any
 function querystring(name: any, url = window.location.href) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import ErrorBoundary from "./components/ErrorBoundary";
-import Routes from "./Routes";
+import ErrorBoundary from "./pages/ErrorBoundary";
+import Routes from "./contexts/route/Routes";
 import "./App.css";
 import { MyNavBar } from "./containers/MyNavBar";
 import { UserContextProvider } from "./contexts/user/UserContext";

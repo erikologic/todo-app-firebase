@@ -2,7 +2,6 @@ import React from "react";
 import { logError } from "../libs/errorLib";
 import "./ErrorBoundary.css";
 
-
 // TODO remove any
 export default class ErrorBoundary extends React.Component {
   state = { hasError: false };

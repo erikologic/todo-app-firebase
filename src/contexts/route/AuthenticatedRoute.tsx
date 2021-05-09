@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Redirect, useLocation } from "react-router-dom";
-import { useUserContext } from "../contexts/user/UserContext";
+import { useUserContext } from "../user/UserContext";
 
 // TODO remove any
 export default function AuthenticatedRoute({ children, ...rest }: any) {

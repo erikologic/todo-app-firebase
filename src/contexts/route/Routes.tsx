@@ -1,12 +1,12 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
-import Notes from "./pages/Notes";
-import SignIn from "./pages/SignIn";
-import NewNote from "./pages/NewNote";
-import NotFound from "./pages/NotFound";
-import AuthenticatedRoute from "./components/AuthenticatedRoute";
-import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
+import Home from "../../pages/Home";
+import Notes from "../../pages/Notes";
+import SignIn from "../../pages/SignIn";
+import NewNote from "../../pages/NewNote";
+import NotFound from "../../pages/NotFound";
+import AuthenticatedRoute from "./AuthenticatedRoute";
+import UnauthenticatedRoute from "./UnauthenticatedRoute";
 
 export default function Routes() {
   return (
