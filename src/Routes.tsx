@@ -1,10 +1,10 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Home from "./containers/Home";
-import Notes from "./containers/Notes";
-import SignIn from "./containers/SignIn";
-import NewNote from "./containers/NewNote";
-import NotFound from "./containers/NotFound";
+import Home from "./pages/Home";
+import Notes from "./pages/Notes";
+import SignIn from "./pages/SignIn";
+import NewNote from "./pages/NewNote";
+import NotFound from "./pages/NotFound";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 

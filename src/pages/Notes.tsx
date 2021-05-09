@@ -57,11 +57,9 @@ export default function Notes() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-
     setIsLoading(true);
 
     try {
-
       await saveNote({
         content,
       });

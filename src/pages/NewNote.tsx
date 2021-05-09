@@ -21,7 +21,6 @@ export default function NewNote() {
     setIsLoading(true);
 
     try {
-
       await createNote({ content });
       history.push("/");
     } catch (e) {
