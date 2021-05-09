@@ -13,13 +13,13 @@ interface ToDoUser {
   logout: () => void;
 }
 
-interface IAuthContext {
+export interface IAuthContext {
   user?: ToDoUser;
   SignInElem: React.FC;
 }
 
 const defaultUserContext = { SignInElem };
-const UserContext = createContext<IAuthContext>(defaultUserContext);
+export const UserContext = createContext<IAuthContext>(defaultUserContext);
 export const useUserContext = (): IAuthContext => useContext(UserContext);
 
 type PropsChildren = { children: ReactNode };
