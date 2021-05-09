@@ -43,6 +43,7 @@ describe("MyNavBar", () => {
 
   describe("when logged in", () => {
     let res;
+    const logout = jest.fn();
 
     beforeEach(() => {
       const authenticatedContext: IAuthContext = {
@@ -51,14 +52,21 @@ describe("MyNavBar", () => {
         },
         user: {
           email: null,
-          logout: () => null,
+          logout,
         },
       };
 
       res = render(
         <UserContext.Provider value={authenticatedContext}>
           <MemoryRouter>
-            <MyNavBar />
+            <Switch>
+              <Route exact path="/">
+                <MyNavBar />
+              </Route>
+              <Route exact path="/sign-in">
+                <div data-testid="sign-in-page" />
+              </Route>
+            </Switch>
           </MemoryRouter>
         </UserContext.Provider>
       );
@@ -66,6 +74,20 @@ describe("MyNavBar", () => {
 
     test("shows logout", () => {
       expect(res.getByText("Logout")).toBeInTheDocument();
+    });
+
+    describe("when click log out", () => {
+      beforeEach(() => {
+        fireEvent.click(res.getByText("Logout"));
+      });
+
+      test("log the user out", async () => {
+        expect(logout).toHaveBeenCalled();
+      });
+
+      test("redirects to the sign in page", async () => {
+        expect(res.getByTestId("sign-in-page")).toBeInTheDocument();
+      });
     });
   });
 });
