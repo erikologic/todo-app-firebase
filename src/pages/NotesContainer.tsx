@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { BsPencilSquare } from "react-icons/bs";
 import { useUserContext } from "../contexts/user/UserContext";
 
-export const NotesContainer = () => {
+const NotesContainer = () => {
   const [notes] = useState([] as any[]);
   // const [notes, setNotes] = useState([] as any[]);
   // const { user } = useUserContext();
@@ -15,7 +15,7 @@ export const NotesContainer = () => {
   // }, [user?.email]);
 
   return (
-    <div className="notes">
+    <div className="notes" data-testid="notes">
       <h2 className="pb-3 mt-4 mb-3 border-bottom">Your Notes</h2>
       <ListGroup>
         <LinkContainer to="/notes/new">
@@ -42,3 +42,5 @@ export const NotesContainer = () => {
     </div>
   );
 };
+
+export default NotesContainer;

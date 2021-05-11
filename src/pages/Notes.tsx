@@ -97,7 +97,7 @@ export default function Notes() {
   }
 
   return (
-    <div className="Notes">
+    <div className="Notes" data-testid="notes">
       {note && (
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="content">
