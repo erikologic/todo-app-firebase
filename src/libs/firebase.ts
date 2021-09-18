@@ -16,6 +16,6 @@ firebase.initializeApp(firebaseConfig);
 export const auth = firebase.auth();
 export const signInOptions = [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
 ]
 
